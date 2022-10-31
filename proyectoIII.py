@@ -77,7 +77,7 @@ class PopupWindow:
     def __init__(self, parent):
         self.parent = parent
         self.gui = tk.Toplevel(self.parent)
-        self.gui.title("DragonEditor")
+        self.gui.title("Dragon Paper")
         self.parent.update_idletasks()
         width = 500
         height = 200
@@ -144,7 +144,7 @@ class Window(tk.Tk):
         self.geometry("800x600+100+100")
         self.configure(background='#151e21')
         self.title("Dragon File")
-        img = tk.Image("photo", file="Dragon_icon.png")
+        img = tk.Image("photo", file="assets/Dragon_icon.png")
         self.tk.call('wm','iconphoto',self._w, img)
         self.path = tk.Label(self, text=app.path_file,
                              background="#151e21", fg='#00c8e0')
