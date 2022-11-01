@@ -1,26 +1,25 @@
 import os
 import time
+import webbrowser
+
 import tkinter as tk
 from tkinter import ttk, filedialog
-# from PIL import Image, ImageTk
+from PIL import Image, ImageTk
 Font_tuple = ("Monaco Menlo Consolas", 10, "normal")
-filesTypes = [('All Files', '*.*'), 
-             ('Python Files', '*.py'),
-             ('Text Document', '*.txt')]
+
 
 def donothing():
     x = 0
 
 
 class App():
-
-
     file_name = ''
     extension_file = ''
     path_file = ''
 
     def __init__(self):
-        self.path_file = filedialog.askopenfilename(title = "Selecciona un archivo")
+        self.path_file = filedialog.askopenfilename(
+            title="Selecciona un archivo")
         base_name = os.path.basename(self.path_file).split(".")
         self.file_name = base_name[0]
         self.extension_file = base_name[1]
@@ -38,6 +37,9 @@ class App():
         base_name = os.path.basename(self.path_file).split(".")
         self.file_name = base_name[0]
         self.extension_file = base_name[1]
+
+    def go_to_repo(self):
+        webbrowser.open('https://github.com/estiven-lg/Dragon-Paper')
 
 
 class MenuBar(tk.Menu):
@@ -64,18 +66,20 @@ class MenuBar(tk.Menu):
 
         help_menu = tk.Menu(
             self, tearoff=0, background='#151e21', fg='#00c8e0')
-        help_menu.add_command(label="Informacion", command=donothing)
+        help_menu.add_command(label="Informacion", command=master.openInfo)
         help_menu.add_command(label="Manual de Usuario", command=donothing)
-        help_menu.add_command(label="Integrantes", command=donothing)
+        help_menu.add_command(label="Integrantes", command=master.openAuthorInfo)
+        help_menu.add_command(label="Repositorio", command=app.go_to_repo)
 
         self.add_cascade(label="Archivo", menu=file_menu, background='#151e21')
         self.add_cascade(label="Editar", menu=edit_menu, background='#151e21')
         self.add_cascade(label="Ayuda", menu=help_menu, background='#151e21')
 
 
-class PopupWindow:
+class PopupWindowConfirmation:
     def __init__(self, parent):
         self.parent = parent
+        self.gui.resizable(False, False)
         self.gui = tk.Toplevel(self.parent)
         self.gui.title("Dragon Paper")
         self.parent.update_idletasks()
@@ -135,6 +139,112 @@ class PopupWindow:
         return
 
 
+class PopupWindowInfo:
+    def __init__(self, parent):
+        self.parent = parent
+        self.gui = tk.Toplevel(self.parent, background="#151e21")
+        self.gui.resizable(False, False)
+        self.gui.title("Dragon Paper")
+        self.parent.update_idletasks()
+        width = 600
+        height = 200
+        x = (self.parent.winfo_screenwidth() // 4) - (width // 4)
+        y = (self.parent.winfo_screenheight() // 4) - (height // 4)
+        self.gui.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        self.gui.wait_visibility()
+
+        self.image = tk.Frame(self.gui, bg="#151e21", width=250, height=200)
+        self.image.grid(row=0, column=0, sticky="NW")
+        self.image.grid_propagate(0)
+        self.image.update()
+
+        img = ImageTk.PhotoImage(Image.open(
+            "assets/Dragon_icon.png").resize((250, 200)), format="png")
+
+        label = tk.Label(self.image, image=img, background="#151e21")
+        label.image = img
+        label.pack()
+        self.Content = tk.Frame(self.gui, bg="#151e21", width=300, height=200)
+        self.Content.grid(row=0, column=1, sticky="NW")
+        self.Content.grid_propagate(0)
+        self.Content.update()
+
+        tk.Label(self.Content,
+                 text="Dragon Paper",
+                 fg="light green",
+                 bg="#151e21",
+                 font="Helvetica 16 bold italic").pack()
+        tk.Label(self.Content,
+                 text="Este programa se distribuye con la esperanza de que sea útilpara modificar y crear archivos de Texto. de mas misma manera intuitivo de usar.",
+                 fg="#00c8e0",
+                 bg="#151e21",
+                 wraplength=300,
+                 anchor='w'
+                 ).pack(fill='both')
+        
+
+        tk.Label(self.Content,
+                 text="Dragon Paper es software libre: puede redistribuirlo y/o modificarlo bajo los términos de la Licencia Pública General",
+                 fg="#00c8e0",
+                 bg="#151e21",
+                 wraplength=300,
+                 anchor='w'
+                 ).pack(fill='both')
+
+
+class PopupWindowAuthor:
+    def __init__(self, parent):
+        self.parent = parent
+        self.gui = tk.Toplevel(self.parent, background="#151e21")
+        self.gui.resizable(False, False)
+        self.gui.title("Dragon Paper")
+        self.parent.update_idletasks()
+        width = 600
+        height = 200
+        x = (self.parent.winfo_screenwidth() // 4) - (width // 4)
+        y = (self.parent.winfo_screenheight() // 4) - (height // 4)
+        self.gui.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        self.gui.wait_visibility()
+
+        self.image = tk.Frame(self.gui, bg="#151e21", width=250, height=200)
+        self.image.grid(row=0, column=0, sticky="NW")
+        self.image.grid_propagate(0)
+        self.image.update()
+
+        img = ImageTk.PhotoImage(Image.open(
+            "assets/author.png").resize((250, 200)), format="png")
+
+        label = tk.Label(self.image, image=img, background="#151e21")
+        label.image = img
+        label.pack()
+        self.Content = tk.Frame(self.gui, bg="#151e21", width=300, height=200)
+        self.Content.grid(row=0, column=1, sticky="NW")
+        self.Content.grid_propagate(0)
+        self.Content.update()
+
+        tk.Label(self.Content,
+                 text="Nombre:Estiven Joel Laferre Guevara",
+                 fg="#00c8e0",
+                 bg="#151e21",
+                 wraplength=300,
+                 anchor='w'
+                 ).pack(fill='both')
+        
+        tk.Label(self.Content,
+                 text="Carnet:7690-22-2644",
+                 fg="#00c8e0",
+                 bg="#151e21",
+                 wraplength=300,
+                 anchor='w'
+                 ).pack(fill='both')
+        tk.Label(self.Content,
+                 text="No. Grupo canvas :7690-22-2644",
+                 fg="#00c8e0",
+                 bg="#151e21",
+                 wraplength=300,
+                 anchor='w'
+                 ).pack(fill='both')
+
 class Window(tk.Tk):
     pending_save = False
     # photo = tk.PhotoImage(file = "Dragon_icon.png")
@@ -145,7 +255,7 @@ class Window(tk.Tk):
         self.configure(background='#151e21')
         self.title("Dragon File")
         img = tk.Image("photo", file="assets/Dragon_icon.png")
-        self.tk.call('wm','iconphoto',self._w, img)
+        self.tk.call('wm', 'iconphoto', self._w, img)
         self.path = tk.Label(self, text=app.path_file,
                              background="#151e21", fg='#00c8e0')
         self.path.pack(side=tk.TOP, padx=5, pady=5)
@@ -173,7 +283,7 @@ class Window(tk.Tk):
 
     def openFile(self):
         if(self.pending_save):
-            window = PopupWindow(self)
+            window = PopupWindowConfirmation(self)
         else:
             app.openFile()
             self.title(app.file_name)
@@ -189,6 +299,7 @@ class Window(tk.Tk):
         file.close
         self.inputTxt.edit_reset()
         self.pending_save = False
+
     def saveFileAs(self):
         path_file = filedialog.asksaveasfilename()
         content = self.inputTxt.get("1.0", tk.END)
@@ -198,8 +309,10 @@ class Window(tk.Tk):
         self.inputTxt.edit_reset()
         self.pending_save = False
 
-
-
+    def openInfo(self):
+        PopupWindowInfo(self)
+    def openAuthorInfo(self):
+        PopupWindowAuthor(self)
 
 app = App()
 root = Window()
