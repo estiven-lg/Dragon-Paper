@@ -67,7 +67,7 @@ class MenuBar(tk.Menu):
         help_menu = tk.Menu(
             self, tearoff=0, background='#151e21', fg='#00c8e0')
         help_menu.add_command(label="Informacion", command=master.openInfo)
-        help_menu.add_command(label="Manual de Usuario", command=donothing)
+        help_menu.add_command(label="Manual de Usuario", command=master.openDoc)
         help_menu.add_command(label="Integrantes", command=master.openAuthorInfo)
         help_menu.add_command(label="Repositorio", command=app.go_to_repo)
 
@@ -79,8 +79,8 @@ class MenuBar(tk.Menu):
 class PopupWindowConfirmation:
     def __init__(self, parent):
         self.parent = parent
-        self.gui.resizable(False, False)
         self.gui = tk.Toplevel(self.parent)
+        self.gui.resizable(False, False)
         self.gui.title("Dragon Paper")
         self.parent.update_idletasks()
         width = 500
@@ -313,6 +313,9 @@ class Window(tk.Tk):
         PopupWindowInfo(self)
     def openAuthorInfo(self):
         PopupWindowAuthor(self)
+    def openDoc(self):
+        webbrowser.open_new('./assets/Doc.pdf')
+        
 
 app = App()
 root = Window()
