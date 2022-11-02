@@ -20,6 +20,8 @@ git clone https://github.com/estiven-lg/Dragon-Paper.git
  python proyectoIII.py 
 ```
 ## Como usar ?
+![image](https://user-images.githubusercontent.com/95370813/199381393-b742c1c3-b340-42f4-8a8f-9e75173ad3f7.png)
+
 al ejecutar lo primero que nos pedira sera escoger un archivo de texto para editar
 ![image](https://user-images.githubusercontent.com/95370813/199374873-f1595a7b-d188-4eaf-b667-0e20398d9878.png)
 
