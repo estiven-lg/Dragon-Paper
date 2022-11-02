@@ -73,5 +73,3 @@ muestra informacion de los desarolladores
 ### Repositorio
 abre un enlace al repositorio para este programa 
 
-
-
