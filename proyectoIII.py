@@ -237,7 +237,7 @@ class PopupWindowAuthor:
                  anchor='w'
                  ).pack(fill='both')
         tk.Label(self.Content,
-                 text="No. Grupo canvas :7690-22-2644",
+                 text="No. Grupo canvas :# 1",
                  fg="#00c8e0",
                  bg="#151e21",
                  wraplength=300,
