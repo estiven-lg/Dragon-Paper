@@ -5,12 +5,9 @@ import webbrowser
 import tkinter as tk
 from tkinter import ttk, filedialog
 from PIL import Image, ImageTk
+
+
 Font_tuple = ("Monaco Menlo Consolas", 10, "normal")
-
-
-def donothing():
-    x = 0
-
 
 class App():
     file_name = ''
@@ -23,7 +20,6 @@ class App():
         base_name = os.path.basename(self.path_file).split(".")
         self.file_name = base_name[0]
         self.extension_file = base_name[1]
-        # self.historial.append(self.getContent())
 
     def getContent(self):
         file = open(self.path_file, "r")
@@ -32,7 +28,6 @@ class App():
         return content
 
     def openFile(self):
-        # root = Window()
         self.path_file = filedialog.askopenfilename()
         base_name = os.path.basename(self.path_file).split(".")
         self.file_name = base_name[0]
@@ -43,7 +38,6 @@ class App():
 
 
 class MenuBar(tk.Menu):
-
     def __init__(self, master):
         super().__init__()
         self.configure(background='#151e21', fg='#00c8e0')
@@ -120,7 +114,6 @@ class PopupWindowConfirmation:
         self.gui.destroy()
         self.parent.saveFile()
         app.openFile()
-        # self.parent.openFile()
         self.parent.title(app.file_name)
         self.parent.path['text'] = app.path_file
         self.parent.inputTxt.delete('1.0', tk.END)
@@ -247,7 +240,6 @@ class PopupWindowAuthor:
 
 class Window(tk.Tk):
     pending_save = False
-    # photo = tk.PhotoImage(file = "Dragon_icon.png")
 
     def __init__(self):
         super().__init__()
