@@ -1,6 +1,7 @@
 import os
 import time
 import webbrowser
+import subprocess
 
 import tkinter as tk
 from tkinter import ttk, filedialog
@@ -313,7 +314,7 @@ class Window(tk.Toplevel):
     def openAuthorInfo(self):
         PopupWindowAuthor(self)
     def openDoc(self):
-        webbrowser.open_new('./assets/Doc.pdf')
+        webbrowser.open_new('https://drive.google.com/file/d/1nsa2z0Zn37IMvbFFxZx7HdQOAv8hxgSH/view?usp=sharing')
         
 app = App()
 root = Window()
