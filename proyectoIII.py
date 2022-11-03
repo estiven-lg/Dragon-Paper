@@ -8,7 +8,6 @@ from PIL import Image, ImageTk
 
 
 Font_tuple = ("Monaco Menlo Consolas", 10, "normal")
-# root = tk.Tk()
 
 class App():
     file_name = ''
