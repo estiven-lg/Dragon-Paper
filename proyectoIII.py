@@ -8,6 +8,7 @@ from PIL import Image, ImageTk
 
 
 Font_tuple = ("Monaco Menlo Consolas", 10, "normal")
+# root = tk.Tk()
 
 class App():
     file_name = ''
@@ -15,6 +16,7 @@ class App():
     path_file = ''
 
     def __init__(self):
+        tk.Tk().withdraw()
         self.path_file = filedialog.askopenfilename(
             title="Selecciona un archivo")
         base_name = os.path.basename(self.path_file).split(".")
@@ -28,6 +30,7 @@ class App():
         return content
 
     def openFile(self):
+        tk.Tk().withdraw()
         self.path_file = filedialog.askopenfilename()
         base_name = os.path.basename(self.path_file).split(".")
         self.file_name = base_name[0]
@@ -40,13 +43,14 @@ class App():
 class MenuBar(tk.Menu):
     def __init__(self, master):
         super().__init__()
+        tk.Menu.__init__(self, master)
         self.configure(background='#151e21', fg='#00c8e0')
-        self.master
+        # self.master
         file_menu = tk.Menu(
             self, tearoff=0, background='#151e21', fg='#00c8e0')
         file_menu.add_command(label="Abrir", command=master.openFile)
         file_menu.add_command(
-            label="Guardar", command=self.master.saveFile)
+            label="Guardar", command=master.saveFile)
         file_menu.add_command(label="Guardar Como", command=master.saveFileAs)
         file_menu.add_separator()
         file_menu.add_command(label="Salir", command=self.quit)
@@ -134,6 +138,8 @@ class PopupWindowConfirmation:
 
 class PopupWindowInfo:
     def __init__(self, parent):
+        super().__init__()
+        
         self.parent = parent
         self.gui = tk.Toplevel(self.parent, background="#151e21")
         self.gui.resizable(False, False)
@@ -152,7 +158,7 @@ class PopupWindowInfo:
         self.image.update()
 
         img = ImageTk.PhotoImage(Image.open(
-            "assets/Dragon_icon.png").resize((250, 200)), format="png")
+            "assets/Dragon_icon.png").resize((250, 200)))
 
         label = tk.Label(self.image, image=img, background="#151e21")
         label.image = img
@@ -238,11 +244,12 @@ class PopupWindowAuthor:
                  anchor='w'
                  ).pack(fill='both')
 
-class Window(tk.Tk):
+class Window(tk.Toplevel):
     pending_save = False
 
     def __init__(self):
         super().__init__()
+
         self.geometry("800x600+100+100")
         self.configure(background='#151e21')
         self.title("Dragon File")
@@ -293,6 +300,7 @@ class Window(tk.Tk):
         self.pending_save = False
 
     def saveFileAs(self):
+        tk.Tk().withdraw()
         path_file = filedialog.asksaveasfilename()
         content = self.inputTxt.get("1.0", tk.END)
         file = open(path_file, 'w')
@@ -308,6 +316,5 @@ class Window(tk.Tk):
     def openDoc(self):
         webbrowser.open_new('./assets/Doc.pdf')
         
-
 app = App()
 root = Window()
